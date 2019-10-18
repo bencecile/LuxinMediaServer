@@ -1,3 +1,5 @@
+mod handshake;
+
 use std::io::{BufReader, BufWriter};
 use std::io::prelude::*;
 use std::net::{Ipv4Addr, TcpListener, TcpStream};
@@ -6,68 +8,24 @@ use serde::{Deserialize, Serialize};
 use serde::de::{DeserializeOwned};
 use sodiumoxide::crypto::box_::{self, Nonce, PublicKey, SecretKey};
 
+use self::handshake::{HandshakeCommand, HandshakeClient};
 use crate::{CommsError, CommsResult, CryptoError};
 
 const SERVER_PORT: u16 = 50025;
 
-#[derive(Deserialize, Serialize)]
-enum HandshakeCommand {
-    Ok,
-    SendPublicKey(PublicKey),
-}
-impl HandshakeCommand {
-    fn got_ok(&self) -> bool {
-        match self {
-            Self::Ok => true,
-            _ => false,
-        }
-    }
-}
-
-struct HandshakeClient {
-    stream: TcpStream,
-}
-impl HandshakeClient {
-    fn new(stream: TcpStream) -> HandshakeClient {
-        HandshakeClient {
-            stream,
-        }
-    }
-
-    fn perform_handshake(mut self, pub_key: PublicKey) -> CommsResult<(PublicKey, TcpStream)> {
-        self.send(HandshakeCommand::SendPublicKey(pub_key))?;
-        let other_public_key = match self.recv()? {
-            HandshakeCommand::SendPublicKey(pub_key) => pub_key,
-            _ => return Err(CommsError::Crypto(CryptoError::BadHandshake(
-                "Failed to get the other client's public key first".to_string()
-            ))),
-        };
-        self.send(HandshakeCommand::Ok)?;
-        if !self.recv()?.got_ok() {
-            return Err(CommsError::Crypto(CryptoError::BadHandshake(
-                "Failed to get an OK from the other client".to_string()
-            )));
-        }
-
-        Ok( (other_public_key, self.stream) )
-    }
-
-    fn send(&mut self, command: HandshakeCommand) -> CommsResult<()> {
-        bincode::serialize_into(BufWriter::new(&mut self.stream), &command)?;
-        Ok(())
-    }
-    fn recv(&mut self) -> CommsResult<HandshakeCommand> {
-        Ok(bincode::deserialize_from(BufReader::new(&mut self.stream))?)
-    }
-}
+// TODO We may want different kinds of connections that can only send specfic commands. One before login, post-login
 
 #[derive(Deserialize, Serialize)]
 pub enum ClientCommand {
-    Hello,
+    /// Requests to stop the connection
+    Exit,
+    RequestTestMessage,
 }
 #[derive(Deserialize, Serialize)]
 pub enum ServerCommand {
-    Hello,
+    /// Acknowledging something that the client sent
+    Ok,
+    TestMessage(String),
 }
 
 pub struct Client {

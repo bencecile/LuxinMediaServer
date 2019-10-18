@@ -1,7 +1,9 @@
 # ToDo
-- Create a login system
-    - Admin should be the the only user with an empty password to start
-    - This is for safety when using it outside of the local network
+- Be able to write that message in the Client window
+
+- Create a real session on the server side
+    - Spawn another thread on a connection
+    - Just keep waiting until it dies
 
 - A plugin is an extension that an Admin can make for every user to use
     - Every plugin that wants to be used will need to be created and added first
@@ -10,5 +12,39 @@
     - This may be easy enough to abstract for any shell
 - Make a file browser plugin
 - Make a menu for all the available plugins
+- Set permissions for who can use certain plugins
+- Be able to have 2 of the same plugin with different settings
+    - For example, the file browser
+        - Admin should have read and write access
+        - Users should only have read access
+        - Or have Users with read and write but writes only in the Luxin Media space
+- Create a plugin skeleton for each distinct kind of media
+    - Be able to customize where and how it saves things
+    - These plugins should be how you upload and download (or stream) the media
+    - Videos
+    - Music
+    - Podcasts
+    - Books (PDF)
+    - Books (Epub)
+    - Pictures
+- Each media file should have a hash of it
+    - This way we can easily check if there's a new version for something
+- The server and client should have the same decoding tools
+    - This will make sure that the client will be able to use something that gets uploaded
 
+- Create a login system
+    - Admin should be the the only user with an empty password to start
+    - This is for safety when using it outside of the local network
 - Create a command line tool that can reset the Admin user's password
+    - It would run locally so it must be run on the server after it's started up once
+- The Admin should be the only one capable of creating other accounts
+- Keep a cache of files on the local disk (client side)
+    - These are ones downloaded from the server
+    - Should be optional to download (or else just always streams)
+        - Maybe a button close to the media
+- Make a setting screen for client only settings
+    - Anyone can set these if they're running a client
+
+- Be able to configure the server address from the client (from the UI)
+    - This should be do-able without a config file that gets read in
+    - It should remember the latest server connections

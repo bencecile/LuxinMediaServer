@@ -13,7 +13,7 @@ def main():
 
     with Popen(makeRunCommand(SERVER_BINARY)) as server:
         # Sleep a bit so that the server can stabilize
-        time.sleep(0.2)
+        time.sleep(0.5)
         with Popen(makeRunCommand(CLIENT_BINARY)) as client:
             pass
 
