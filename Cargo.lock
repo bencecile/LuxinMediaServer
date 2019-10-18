@@ -96,7 +96,10 @@ dependencies = [
 name = "luxin_media_server"
 version = "0.1.0"
 dependencies = [
+ "bincode 1.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "comms_lib 0.1.0",
+ "serde 1.0.101 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sodiumoxide 0.2.5 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]

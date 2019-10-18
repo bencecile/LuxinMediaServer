@@ -10,6 +10,11 @@ edition = "2018"
 [dependencies]
 comms_lib = { path = "common_libs/comms_lib" }
 
+# Include all the other libraries we will need so that we specify a version in only 1 place
+serde = { version = "1.0.101", features = ["derive"] }
+bincode = "1.2.0"
+sodiumoxide = "0.2.5"
+
 [[bin]]
 name = "luxin_media_server"
 path = "src_server/main.rs"
