@@ -8,7 +8,7 @@ edition = "2018"
 [workspace]
 
 [dependencies]
-comm_lib = { path = "common_libs/comm_lib" }
+comms_lib = { path = "common_libs/comms_lib" }
 
 [[bin]]
 name = "luxin_media_server"

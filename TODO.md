@@ -1,6 +1,4 @@
 # ToDo
-- Create the start of the client
-- Create the server
 - Make a hello world TCP call
 - Start an encrypted session and make the hello world call
     - Both the client and server should generate their asymmetric keys
