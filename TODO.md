@@ -1,7 +1,4 @@
 # ToDo
-- Start an encrypted session and make the hello world call
-    - Both the client and server should generate their asymmetric keys
-    - We don't really care about identity verification
 - Create a login system
     - This is for safety when using it outside of the local network
 
