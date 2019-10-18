@@ -1,19 +1,31 @@
-from subprocess import Popen
+from subprocess import Popen, run
+import time
+
+SERVER_BINARY = "luxin_media_server"
+CLIENT_BINARY = "luxin_media_client"
 
 def main():
-    with Popen(makeServerCommand()) as server:
-        with Popen(makeClientCommand()) as client:
+    # Build them both first so that we can bail out if one of them fails to compile
+    print("Building the server")
+    run(makeBuildCommand(SERVER_BINARY), check=True)
+    print("Building the client")
+    run(makeBuildCommand(CLIENT_BINARY), check=True)
+
+    with Popen(makeRunCommand(SERVER_BINARY)) as server:
+        # Sleep a bit so that the server can stabilize
+        time.sleep(0.2)
+        with Popen(makeRunCommand(CLIENT_BINARY)) as client:
             pass
 
-def makeServerCommand():
+def makeBuildCommand(binary):
     return [
-        "cargo", "run",
-        "--bin", "luxin_media_server",
+        "cargo", "build",
+        "--bin", binary,
     ]
-def makeClientCommand():
+def makeRunCommand(binary):
     return [
         "cargo", "run",
-        "--bin", "luxin_media_client",
+        "--bin", binary,
     ]
 
 if __name__ == "__main__":
