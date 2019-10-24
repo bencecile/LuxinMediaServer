@@ -27,10 +27,15 @@
     - Books (PDF)
     - Books (Epub)
     - Pictures
+        - Be able to check if we already have the same picture on upload
 - Each media file should have a hash of it
     - This way we can easily check if there's a new version for something
 - The server and client should have the same decoding tools
     - This will make sure that the client will be able to use something that gets uploaded
+- Make a disk space plugin
+    - Show total disk space with used
+    - Show used by the Luxin Media Server
+    - Be able to discriminate further between each plugin (show a plugin usage breakdown)
 
 - Create a login system
     - Admin should be the the only user with an empty password to start
@@ -42,8 +47,18 @@
     - These are ones downloaded from the server
     - Should be optional to download (or else just always streams)
         - Maybe a button close to the media
+    - Always cache the file if it's been streamed to completion
+        - This would mean to start writing the streaming file to disk
+    - Some plugins may download the entire file first (PDF for example)
 - Make a setting screen for client only settings
     - Anyone can set these if they're running a client
+    - Cache life would be a good option
+- Be able to use the client offline
+    - This will just use the cached stuff
+- Let the client open files on disk as if they were sent from the server
+    - This would let the client be used generally, like VLC or something
+- Keep track of progress for various media things if it supports it
+    - This would be dependent on each plugin
 
 - Be able to configure the server address from the client (from the UI)
     - This should be do-able without a config file that gets read in
