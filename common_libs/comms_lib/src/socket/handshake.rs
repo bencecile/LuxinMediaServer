@@ -25,9 +25,7 @@ pub struct HandshakeClient {
 }
 impl HandshakeClient {
     pub fn new(stream: TcpStream) -> HandshakeClient {
-        HandshakeClient {
-            stream,
-        }
+        HandshakeClient { stream }
     }
 
     pub fn perform_handshake(mut self, pub_key: PublicKey) -> CommsResult<(PublicKey, TcpStream)> {
@@ -47,7 +45,8 @@ impl HandshakeClient {
 
         Ok( (other_public_key, self.stream) )
     }
-
+}
+impl HandshakeClient {
     fn send(&mut self, command: HandshakeCommand) -> CommsResult<()> {
         bincode::serialize_into(BufWriter::new(&mut self.stream), &command)?;
         Ok(())

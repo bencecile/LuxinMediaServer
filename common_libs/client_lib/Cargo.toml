@@ -1,5 +1,5 @@
 [package]
-name = "comms_lib"
+name = "client_lib"
 version = "0.1.0"
 authors = ["Benjamin Cecile <bencecile@gmail.com>"]
 edition = "2018"
@@ -9,6 +9,6 @@ workspace = "../.."
 
 [dependencies]
 async-std = "1.4.0"
-bincode = "1.2.1"
-serde = { version = "1.0.104", features = ["derive"] }
-sodiumoxide = "0.2.5"
+
+comms_lib = { path = "../comms_lib" }
+ui_lib = { path = "../ui_lib" }

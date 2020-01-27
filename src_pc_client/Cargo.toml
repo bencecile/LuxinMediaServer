@@ -1,0 +1,9 @@
+[package]
+name = "luxin_media_pc_client"
+version = "0.1.0"
+authors = ["Benjamin Cecile <bencecile@gmail.com>"]
+edition = "2018"
+workspace = ".."
+
+[dependencies]
+client_lib = { path = "../common_libs/client_lib" }

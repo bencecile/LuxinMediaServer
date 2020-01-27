@@ -1,15 +1,16 @@
-from subprocess import Popen, run
+from subprocess import CalledProcessError, Popen, run
 import time
 
 SERVER_BINARY = "luxin_media_server"
-CLIENT_BINARY = "luxin_media_client"
+CLIENT_BINARY = "luxin_media_pc_client"
 
 def main():
     # Build them both first so that we can bail out if one of them fails to compile
-    print("Building the server")
-    run(makeBuildCommand(SERVER_BINARY), check=True)
-    print("Building the client")
-    run(makeBuildCommand(CLIENT_BINARY), check=True)
+    print("Building everything")
+    try:
+        run(["cargo", "build", "--workspace"], check=True)
+    except CalledProcessError:
+        return
 
     with Popen(makeRunCommand(SERVER_BINARY)) as server:
         # Sleep a bit so that the server can stabilize
@@ -17,16 +18,8 @@ def main():
         with Popen(makeRunCommand(CLIENT_BINARY)) as client:
             pass
 
-def makeBuildCommand(binary):
-    return [
-        "cargo", "build",
-        "--bin", binary,
-    ]
 def makeRunCommand(binary):
-    return [
-        "cargo", "run",
-        "--bin", binary,
-    ]
+    return [f"./target/debug/{binary}.exe"]
 
 if __name__ == "__main__":
     main()

@@ -8,7 +8,7 @@ use serde::{Deserialize, Serialize};
 use serde::de::{DeserializeOwned};
 use sodiumoxide::crypto::box_::{self, Nonce, PublicKey, SecretKey};
 
-use self::handshake::{HandshakeCommand, HandshakeClient};
+use self::handshake::{HandshakeClient};
 use crate::{CommsError, CommsResult, CryptoError};
 
 const SERVER_PORT: u16 = 50025;

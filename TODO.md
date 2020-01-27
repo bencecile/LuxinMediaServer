@@ -1,5 +1,8 @@
 # ToDo
 - Be able to write that message in the Client window
+- Be able to configure the server address from the client (from the UI)
+    - This should be do-able without a config file that gets read in
+    - It should remember the latest server connections
 
 - Create a real session on the server side
     - Spawn another thread on a connection
@@ -60,6 +63,6 @@
 - Keep track of progress for various media things if it supports it
     - This would be dependent on each plugin
 
-- Be able to configure the server address from the client (from the UI)
-    - This should be do-able without a config file that gets read in
-    - It should remember the latest server connections
+- BitTorrent client built-in (on the server)
+    - RSS Feed
+    - Be able to pick which series a torrent belongs
